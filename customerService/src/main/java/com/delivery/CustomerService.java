@@ -1,13 +1,13 @@
-package com.delivery.FastDelivery;
+package com.delivery;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FastDeliveryApplication {
+public class CustomerService {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FastDeliveryApplication.class, args);
+		SpringApplication.run(CustomerService.class, args);
 	}
 
 }
