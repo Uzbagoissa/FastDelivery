@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDtoOuts.stream()
                 .skip(from)
                 .limit(size)
+                .sorted(Comparator.comparing(CustomerDtoOut::getId))
                 .collect(Collectors.toList());
     }
 
@@ -52,6 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
         repository.deleteById(customerId);
     }
 
+    @Transactional
     @Override
     public CustomerDtoOut updateCustomer(long customerId, CustomerDtoInUpdate customerDtoInUpdate) {
         userValid(customerId);

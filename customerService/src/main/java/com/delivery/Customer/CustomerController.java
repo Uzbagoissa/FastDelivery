@@ -21,8 +21,8 @@ public class CustomerController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<CustomerDtoOut> getAllCustomers(@RequestParam(value = "ids", required = false) List<Long> ids,
-                                               @RequestParam(value = "from", defaultValue = "0") long from,
-                                               @RequestParam(value = "size", defaultValue = "10") long size) {
+                                                @RequestParam(value = "from", defaultValue = "0") long from,
+                                                @RequestParam(value = "size", defaultValue = "10") long size) {
         if (from < 0) {
             log.info("Неверный параметр from: {}, from должен быть больше или равен 0 ", from);
             throw new IncorrectParameterException("Неверный параметр from: {}, from должен быть больше или равен 0 " + from);
@@ -52,7 +52,7 @@ public class CustomerController {
     @PatchMapping("/{customerId}")
     @ResponseStatus(HttpStatus.OK)
     public CustomerDtoOut updateCustomer(@PathVariable long customerId,
-                                 @RequestBody CustomerDtoInUpdate customerDtoInUpdate) {
+                                         @RequestBody CustomerDtoInUpdate customerDtoInUpdate) {
         log.info("Данные заказчика обновлены");
         return customerService.updateCustomer(customerId, customerDtoInUpdate);
     }
