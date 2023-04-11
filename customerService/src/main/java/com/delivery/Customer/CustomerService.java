@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 public interface CustomerService {
-    List<CustomerDtoOut> getAllCustomers(List<Long> ids, long from, long size);
+    List<CustomerDtoOut> getAllCustomers(List<Long> ids);
 
     CustomerDtoOut saveCustomer(CustomerDtoIn customerDtoIn);
 

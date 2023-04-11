@@ -20,7 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
     private final CustomerRepository repository;
 
     @Override
-    public List<CustomerDtoOut> getAllCustomers(List<Long> ids, long from, long size) {
+    public List<CustomerDtoOut> getAllCustomers(List<Long> ids) {
         List<CustomerDtoOut> customerDtoOuts = new ArrayList<>();
         if (ids.size() == 0) {
             customerDtoOuts = CustomerMapper.toListCustomerDtoOut(repository.findAll());
@@ -34,8 +34,6 @@ public class CustomerServiceImpl implements CustomerService {
 
         }
         return customerDtoOuts.stream()
-                .skip(from)
-                .limit(size)
                 .sorted(Comparator.comparing(CustomerDtoOut::getId))
                 .collect(Collectors.toList());
     }
