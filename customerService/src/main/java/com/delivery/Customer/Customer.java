@@ -12,7 +12,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Table(name = "customers", schema = "public")
-public class Customer {//
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
