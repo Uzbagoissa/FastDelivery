@@ -18,7 +18,7 @@ public class OrderDtoOut {
     Long id;
     Long customerId;
     Long personsNumber;
-    String comment;
+    String comments;
     String address;
     String apartmentOrOffice;
     String paymentType;

@@ -14,7 +14,7 @@ public final class OrderMapper {
                 order.getId(),
                 order.getCustomerId(),
                 order.getPersonsNumber(),
-                order.getComment(),
+                order.getComments(),
                 order.getAddress(),
                 order.getApartmentOrOffice(),
                 order.getPaymentType(),
@@ -28,21 +28,13 @@ public final class OrderMapper {
         Order order = new Order();
         order.setCustomerId(orderDtoIn.getCustomerId());
         order.setPersonsNumber(orderDtoIn.getPersonsNumber());
-        order.setComment(orderDtoIn.getComment());
+        order.setComments(orderDtoIn.getComments());
         order.setAddress(orderDtoIn.getAddress());
         order.setApartmentOrOffice(orderDtoIn.getApartmentOrOffice());
         order.setPaymentType(orderDtoIn.getPaymentType());
         order.setOperatorCall(orderDtoIn.getOperatorCall());
         order.setConditionAgreement(orderDtoIn.getConditionAgreement());
         return order;
-    }
-
-    public static List<OrderDtoOut> toListOrderDtoOut(Iterable<Order> orders, List<Long> foodIds) {
-        List<OrderDtoOut> result = new ArrayList<>();
-        for (Order order : orders) {
-            result.add(toOrderDtoOut(order, foodIds));
-        }
-        return result;
     }
 
 }

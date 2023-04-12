@@ -27,8 +27,8 @@ public class OrderDtoIn {
     Long personsNumber;
 
     @NotNull
-    @NotBlank(message = "Ошибка: comment пустое или содержит только пробелы")
-    String comment;
+    @NotBlank(message = "Ошибка: comments пустое или содержит только пробелы")
+    String comments;
 
     @NotNull
     @NotBlank(message = "Ошибка: address пустое или содержит только пробелы")

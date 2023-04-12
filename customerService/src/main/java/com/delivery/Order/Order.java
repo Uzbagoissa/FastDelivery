@@ -18,27 +18,27 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Column(name = "customerId", nullable = false)
+    @Column(name = "customer_id", nullable = false)
     Long customerId;
 
-    @Column(name = "personsNumber", nullable = false)
+    @Column(name = "persons_number", nullable = false)
     Long personsNumber;
 
-    @Column(name = "comment", nullable = false)
-    String comment;
+    @Column(name = "comments", nullable = false)
+    String comments;
 
     @Column(name = "address", nullable = false)
     String address;
 
-    @Column(name = "apartmentOrOffice", nullable = false)
+    @Column(name = "apartment_or_office", nullable = false)
     String apartmentOrOffice;
 
-    @Column(name = "paymentType", nullable = false)
+    @Column(name = "payment_type", nullable = false)
     String paymentType;
 
-    @Column(name = "operatorCall", nullable = false)
+    @Column(name = "operator_call", nullable = false)
     Boolean operatorCall;
 
-    @Column(name = "conditionAgreement", nullable = false)
+    @Column(name = "condition_agreement", nullable = false)
     Boolean conditionAgreement;
 }

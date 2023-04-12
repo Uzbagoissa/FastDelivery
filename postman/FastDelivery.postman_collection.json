@@ -1,0 +1,755 @@
+{
+	"info": {
+		"_postman_id": "99bd09f1-9e5b-402f-95e9-988158898688",
+		"name": "FastDelivery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25925900"
+	},
+	"item": [
+		{
+			"name": "Попытка добавить заказчика без имени",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"kozlov@yandex.ru\",\n    \"phone\": \"89114568772\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Попытка добавить заказчика без email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Макс\",\n    \"phone\": \"89114568772\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Попытка добавить заказчика без телефона",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([400]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Макс\",\n    \"email\": \"kozlov@yandex.ru\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление заказчика 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"pm.test(\"Добавление участника команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"    pm.expect(jsonData.name).to.eql('Макс');",
+							"    pm.expect(jsonData.email).to.eql('kozlov@yandex.ru');",
+							"    pm.expect(jsonData.phone).to.eql('89114568772');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Макс\",\n    \"email\": \"kozlov@yandex.ru\",\n    \"phone\": \"89114568772\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление заказчика с существующим email",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([409]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Толян\",\n    \"email\": \"kozlov@yandex.ru\",\n    \"phone\": \"89114568772\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление заказчика 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"pm.test(\"Добавление участника команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(2);",
+							"    pm.expect(jsonData.name).to.eql('Толян');",
+							"    pm.expect(jsonData.email).to.eql('kozTol@yandex.ru');",
+							"    pm.expect(jsonData.phone).to.eql('89134565672');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Толян\",\n    \"email\": \"kozTol@yandex.ru\",\n    \"phone\": \"89134565672\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Добавление заказчика 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([201]);",
+							"});",
+							"pm.test(\"Добавление участника команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(3);",
+							"    pm.expect(jsonData.name).to.eql('Олег');",
+							"    pm.expect(jsonData.email).to.eql('budenkov@yandex.ru');",
+							"    pm.expect(jsonData.phone).to.eql('89185675672');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Олег\",\n    \"email\": \"budenkov@yandex.ru\",\n    \"phone\": \"89185675672\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получили всех заказчиков",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.test(\"Получили все команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(3);",
+							"",
+							"    pm.expect(jsonData[0].id).to.eql(1);",
+							"    pm.expect(jsonData[0].name).to.eql('Макс');",
+							"",
+							"    pm.expect(jsonData[1].id).to.eql(2);",
+							"    pm.expect(jsonData[1].name).to.eql('Толян');",
+							"",
+							"    pm.expect(jsonData[2].id).to.eql(3);",
+							"    pm.expect(jsonData[2].name).to.eql('Олег');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers?ids=",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Попытка обновить несуществующего заказчика",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"updateМакс\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "111"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Попытка обновить заказчику ту же почту",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([409]);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"kozTol@yandex.ru\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Обновили заказчика 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.test(\"Добавление участника команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"    pm.expect(jsonData.name).to.eql('updateМакс');",
+							"    pm.expect(jsonData.email).to.eql('kozlov@yandex.ru');",
+							"    pm.expect(jsonData.phone).to.eql('89114568772');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"updateМакс\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Попытка удалить несуществующего заказчика",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([404]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "111"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Удалили заказчика 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/customers/:customerId",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers",
+						":customerId"
+					],
+					"variable": [
+						{
+							"key": "customerId",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получили всех заказчиков",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+							"});",
+							"pm.test(\"Получили все команды\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(2);",
+							"",
+							"    pm.expect(jsonData[0].id).to.eql(1);",
+							"    pm.expect(jsonData[0].name).to.eql('updateМакс');",
+							"",
+							"    pm.expect(jsonData[1].id).to.eql(2);",
+							"    pm.expect(jsonData[1].name).to.eql('Толян');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "*/*",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{baseUrl}}/customers?ids=",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "ids",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
