@@ -24,13 +24,13 @@ public class Order {
     @Column(name = "persons_number", nullable = false)
     Long personsNumber;
 
-    @Column(name = "comments", nullable = false)
+    @Column(name = "comments")
     String comments;
 
     @Column(name = "address", nullable = false)
     String address;
 
-    @Column(name = "apartment_or_office", nullable = false)
+    @Column(name = "apartment_or_office")
     String apartmentOrOffice;
 
     @Column(name = "payment_type", nullable = false)

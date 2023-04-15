@@ -1,6 +1,7 @@
 package com.delivery.Order;
 
 import com.delivery.exceptions.ConflictException;
+import com.delivery.exceptions.IncorrectParameterException;
 import com.delivery.exceptions.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -44,13 +45,30 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public OrderDtoOut saveOrder(OrderDtoIn orderDtoIn) {
-        Order order = OrderMapper.toOrder(orderDtoIn);
+    public OrderDtoOut saveOrder(OrderDtoIn orderDtoIn, Long customerId) {
+        if (orderDtoIn.getPersonsNumber() == null){
+            orderDtoIn.setPersonsNumber(1L);
+        }
+        if (orderDtoIn.getPaymentType() == null || orderDtoIn.getPaymentType().isBlank()){
+            orderDtoIn.setPaymentType("PAYMENT_BY_RECEIPT");
+        }
+        if (orderDtoIn.getOperatorCall() == null){
+            orderDtoIn.setOperatorCall(false);
+        }
+        if (orderDtoIn.getConditionAgreement() == null || orderDtoIn.getConditionAgreement() == false) {
+            log.error("Нужно подтвердить согласие с условиями доставки");
+            throw new IncorrectParameterException("Нужно подтвердить согласие с условиями доставки");
+        }
+        if (orderDtoIn.getFoodIds() == null || orderDtoIn.getFoodIds().size() == 0) {
+            log.error("Отсутствует список продуктов для заказа");
+            throw new NotFoundException("Отсутствует список продуктов для заказа");
+        }
+        Order order = repository.save(OrderMapper.toOrder(orderDtoIn, customerId));
         for (Long foodId : orderDtoIn.getFoodIds()) {
             String sql = "INSERT INTO order_food(order_id, food_id) VALUES (?, ?) ";
             jdbcTemplate.update(sql, order.getId(), foodId);
         }
-        return OrderMapper.toOrderDtoOut(repository.save(order), orderDtoIn.getFoodIds());
+        return OrderMapper.toOrderDtoOut(order, orderDtoIn.getFoodIds());
     }
 
     @Transactional

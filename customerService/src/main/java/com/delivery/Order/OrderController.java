@@ -25,11 +25,12 @@ public class OrderController {
         return orderService.getAllOrders(ids);
     }
 
-    @PostMapping
+    @PostMapping("/{customerId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public OrderDtoOut saveOrder(@Valid @RequestBody OrderDtoIn orderDtoIn) {
+    public OrderDtoOut saveOrder(@Valid @RequestBody OrderDtoIn orderDtoIn,
+                                 @PathVariable Long customerId) {
         log.info("Заказ зарегистрирован");
-        return orderService.saveOrder(orderDtoIn);
+        return orderService.saveOrder(orderDtoIn, customerId);
     }
 
     @DeleteMapping("/{orderId}")

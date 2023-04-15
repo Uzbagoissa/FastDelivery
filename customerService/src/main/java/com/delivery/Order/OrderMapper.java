@@ -24,9 +24,9 @@ public final class OrderMapper {
         );
     }
 
-    public static Order toOrder(OrderDtoIn orderDtoIn) {
+    public static Order toOrder(OrderDtoIn orderDtoIn, Long customerId) {
         Order order = new Order();
-        order.setCustomerId(orderDtoIn.getCustomerId());
+        order.setCustomerId(customerId);
         order.setPersonsNumber(orderDtoIn.getPersonsNumber());
         order.setComments(orderDtoIn.getComments());
         order.setAddress(orderDtoIn.getAddress());
